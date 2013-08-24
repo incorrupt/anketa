@@ -1,0 +1,33 @@
+<% provide(:title, 'index') %>
+
+<h1>Listing worksheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>session</th>
+      <th>depart</th>
+      <th>ending</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @worksheets.each do |worksheet| %>
+      <tr>
+      	<td><%= worksheet.id %></td>
+      	<td><%= worksheet.session_id %></td>
+      	<td><%= worksheet.depart_id %></td>
+      	<td><%= worksheet.ending %></td>
+        <td><%= link_to 'Show', worksheet %></td>
+        <td><%= link_to 'Destroy', worksheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Worksheet', new_worksheet_path %>
