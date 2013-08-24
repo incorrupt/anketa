@@ -1,11 +1,10 @@
-/*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
-table,th, tr,td {
-	border: 2px solid;
-	margin: 5px;
-	padding: 5px;
-}
+
 
 th { font: bold; }
+
+table,th,tr,td {
+	 
+	border: 2px solid;
+    margin: 0px; padding: 0px;
+      
+}

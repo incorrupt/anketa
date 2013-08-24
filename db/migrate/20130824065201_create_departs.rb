@@ -35,20 +35,20 @@ class CreateDeparts < ActiveRecord::Migration
       Depart.create :parent => 14, :name =>'Служба охраны', :id => 1405
       Depart.create :parent => 14, :name =>'Отдел по организации охраны и режима', :id => 140501
       Depart.create :parent => 14, :name =>'Отдел перевозки ценностей', :id => 140502
-    Depart.create :parent => nil, :nam =>'Уeправление проектного финансирования', :id => 15
-      Depart.create :parent => 15, :nam =>'Отдел экспертизы и контроля проектов управления проектного финансирования', :id => 1501
-      Depart.create :parent => 15, :nam =>'Отдел сопровождения проектов управления проектного финансирования', :id => 1502
-    Depart.create :parent => nil, :name =>'Юридический отдел', :id => 16
-    Depart.create :parent => nil, :name =>'Отдел рекламы и связей с общественностью', :id => 17
-    Depart.create :parent => nil, :name =>'Хозяйственный отдел', :id => 18
-    Depart.create :parent => nil, :name =>'Отдел сопровождения строительных проектов', :id => 19
-    Depart.create :parent => nil, :name =>'Канцелярия', :id => 20
-    Depart.create :parent => nil, :name =>'Отдел учета и отчетности', :id => 25
-    Depart.create :parent => nil, :name =>'Управление по работе с персоналом', :id => 26
+    Depart.create :parent => nil, :name =>'Уeправление проектного финансирования', :id => 15
+      Depart.create :parent => 15, :name =>'Отдел экспертизы и контроля проектов управления проектного финансирования', :id => 1501
+      Depart.create :parent => 15, :name =>'Отдел сопровождения проектов управления проектного финансирования', :id => 1502
+    Depart.create :parent => 2, :name =>'Юридический отдел', :id => 16
+    Depart.create :parent => 2, :name =>'Отдел рекламы и связей с общественностью', :id => 17
+    Depart.create :parent => 2, :name =>'Хозяйственный отдел', :id => 18
+    Depart.create :parent => 2, :name =>'Отдел сопровождения строительных проектов', :id => 19
+    Depart.create :parent => 2, :name =>'Канцелярия', :id => 20
+    Depart.create :parent => 2, :name =>'Отдел учета и отчетности', :id => 25
+    Depart.create :parent => 2, :name =>'Управление по работе с персоналом', :id => 26
       Depart.create :parent => 26, :name =>'Отдел по подбору персонала', :id => 2601
       Depart.create :parent => 26, :name =>'Отдел по развитию персонала', :id => 2602
       Depart.create :parent => 26, :name =>'Отдел кадрового делопроизводства', :id => 2603
-    Depart.create :parent => nil, :name =>'Бэк-офис', :id => 38
-    Depart.create :parent => nil, :name =>'Отдел дистанционной работы с клиентами (контакт-центр)', :id => 50
+    Depart.create :parent => 2, :name =>'Бэк-офис', :id => 38
+    Depart.create :parent => 2, :name =>'Отдел дистанционной работы с клиентами (контакт-центр)', :id => 50
   end
 end

@@ -17,20 +17,20 @@ ActiveRecord::Schema.define(version: 20130824065404) do
   enable_extension "plpgsql"
 
   create_table "departs", force: true do |t|
-    t.string   "name"
+    t.string   "name",       limit: 1000
     t.integer  "parent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "factors", force: true do |t|
-    t.string   "name"
+    t.string   "name",       limit: 1000
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "rates", force: true do |t|
-    t.string   "name"
+    t.string   "name",       limit: 1000
     t.float    "value"
     t.integer  "factor_id"
     t.datetime "created_at"

@@ -6,26 +6,34 @@
   <%= f.label "Оценка" %>
   <%= f.number_field :contrib , in: 1...101  %> </br >
   <%= f.label "Подразделение" %>
-  <%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,:include_blank =>' -- Please select Your Depart --' )%></br >
+  <%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,:include_blank =>' -- Please select Yours Depart --' )%></br >
   
   <table>
  
   <% @PDeparts.each do |p| %>
   		<tr>
-  			<th colspan="3"><%= p[1] %></ br></th>
+  			<th hidden="true"> <%= check_box_tag "show_#{p[0]}", 'no', false  %> </th>
+  			<th colspan="5"><%= p[1] %></ br></th>
     	</tr>	
   	<% Depart.where(:parent => p[0]).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>						       
     	<tr class='row'>
-  	   		<td><%= d[0].to_s %></td>
-  	   			<%=  hidden_field_tag "worksheet[votes][][depart_id]" ,  d[0]  %>
-  	   			<%=  hidden_field_tag "worksheet[votes][][factor_id]" ,   1  %>
-  	   			<%=  hidden_field_tag "worksheet[votes][][worksheet_id]" , @worksheet.id %>
-  	   		<td><%=  number_field_tag "worksheet[votes][][value]" , 1 , in: 1...101  %> </td>
-  	   		
-  	   			<%=  hidden_field_tag "worksheet[votes][][depart_id]" ,  d[0]  %>
-  	   			<%=  hidden_field_tag "worksheet[votes][][factor_id]" ,   1 %>
-  	   			<%=  hidden_field_tag "worksheet[votes][][worksheet_id]" , @worksheet.id %>
-  	   			<%=  hidden_field_tag "worksheet[votes][][value]" ,   99 %>
+    		<td><%= check_box_tag "show_#{d[0]}",'yes',Vote.where(depart_id: d[0], worksheet_id: @worksheet.id ).exists? %></td>
+    		
+  	   		<td><%= d[1].to_s %></td>
+  	   		    <% vote = Vote.where(depart_id: d[0], factor_id: 1, worksheet_id: @worksheet.id ).first %>
+  	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], { :id=> d[0] } %>
+  	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 1, { :id=> d[0] } %>
+  	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, { :id=> d[0] } %>
+  	   		<td><%= number_field_tag "worksheet[votes][][value]", ( vote.nil? ? 0 : vote.value ) , { in: 1...101, :id=> d[0] } %> </td>
+  	   		    <% vote = Vote.where(depart_id: d[0], factor_id: 2, worksheet_id: @worksheet.id ).first %>
+  	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], {:id => d[0] }  %>
+  	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 2, {:id => d[0] } %>
+  	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, {:id => d[0] } %>
+  	   		<td><%=  select_tag("worksheet[votes][][value]", 
+  	   				 options_for_select(@RList2 , 
+  	   				 (vote.nil? ? 0 : vote.value) 
+  	   				 ),
+  	   				 { :prompt => "Select something", :id => d[0] } )%></td>
        	</tr> 
     <% end %> 		
   <% end %> 
