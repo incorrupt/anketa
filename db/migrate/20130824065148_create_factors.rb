@@ -2,7 +2,7 @@
 class CreateFactors < ActiveRecord::Migration
   def change
     create_table :factors do |t|
-      t.string :name
+      t.string :name, :limit => 1000  
       t.timestamps
     end
     Factor.create :id => 1, :name => "Доля участия" 

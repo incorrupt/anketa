@@ -9,16 +9,14 @@
   <%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,:include_blank =>' -- Please select Your Depart --' )%></br >
   
   <table>
+ 
   <% @PDeparts.each do |p| %>
-  	<thead class='footer'>
   		<tr>
-  			<th colspan="6"><%= p[1] %></ br></th>
+  			<th colspan="3"><%= p[1] %></ br></th>
     	</tr>	
-  	</thead>	
-  	<% Depart.where(:parent => p[0]).order('name').map {|d| [d.id,d.name]}.each do |d| %>						       
-    	<tbody>
-  	   		<tr class='row'>
-  	   			<td><%= d[1] %> </td>
+  	<% Depart.where(:parent => p[0]).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>						       
+    	<tr class='row'>
+  	   		<td><%= d[0].to_s %></td>
   	   			<%=  hidden_field_tag "worksheet[votes][][depart_id]" ,  d[0]  %>
   	   			<%=  hidden_field_tag "worksheet[votes][][factor_id]" ,   1  %>
   	   			<%=  hidden_field_tag "worksheet[votes][][worksheet_id]" , @worksheet.id %>
@@ -28,8 +26,7 @@
   	   			<%=  hidden_field_tag "worksheet[votes][][factor_id]" ,   1 %>
   	   			<%=  hidden_field_tag "worksheet[votes][][worksheet_id]" , @worksheet.id %>
   	   			<%=  hidden_field_tag "worksheet[votes][][value]" ,   99 %>
-       		</tr>
-     	<tbody>  
+       	</tr> 
     <% end %> 		
   <% end %> 
   </table>  

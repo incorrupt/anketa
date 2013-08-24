@@ -1,7 +1,8 @@
+#encoding: utf-8
 class CreateRates < ActiveRecord::Migration
   def change
     create_table :rates do |t|
-      t.string  :name
+      t.string  :name, :limit => 1000  
       t.float   :value
       t.integer :factor_id
       t.timestamps
