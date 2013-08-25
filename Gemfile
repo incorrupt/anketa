@@ -18,7 +18,8 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-gem 'therubyracer' ,'0.11.0beta1'
+gem 'therubyracer' , '0.11.0beta1'
+
 #gem 'bootstrap-sass', '2.1'
 
 group :assets do

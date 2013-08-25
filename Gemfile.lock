@@ -47,7 +47,6 @@ GEM
     daemons (1.1.9)
     dynamic_form (1.1.4)
     erubis (2.7.0)
-    eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.0)
     hike (1.2.3)
@@ -106,8 +105,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    therubyracer (0.11.0beta1)
-      ref
     therubyracer (0.11.0beta1-x86-mingw32)
       ref
     thin (1.5.1)
