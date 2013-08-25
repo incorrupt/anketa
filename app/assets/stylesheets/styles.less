@@ -1,0 +1,119 @@
+////////////////Globals////////////////
+@gCol1: #eee;
+@gCol2: darken(@gCol1,20%);
+@gCol3: darken(@gCol1,60%);
+@gCol4: darken(@gCol3,20%);
+@tCol1: #222;
+@tCol2: #111;
+@tCol3: #ddd;
+@green: #468721;
+@menuWidth: 300px;
+@blockHeight: 160px;
+@rad: 10px;
+////////////////Global Classes////////////////
+.hidden { display: none; }
+.gradient (@c1,@c2) {
+  background-image: -moz-linear-gradient(top, @c1, @c2);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, @c1), color-stop(1.0,@c2));
+  background-color: @c2;
+}  
+.shadow (@x1, @x2 ,@bl, @col) {
+  -webkit-box-shadow: @x1 @x2 @bl @col;
+  -moz-box-shadow: @x1 @x2 @bl @col;
+  box-shadow: @x1 @x2 @bl @col;
+}
+////////////////Main////////////////
+html {
+  list-style: none;
+  font-family: 'PT Sans', Helvetica, sans-serif;
+  font-size: 14px; 
+}
+body {
+  background: url("textured_paper.png");
+  background-attachment: fixed;
+  //overflow: hidden;
+}
+ 
+header {
+  position: fixed;
+  background: @gCol1; 
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  display: line;
+  div.container {
+    position: relative;
+    .gradient( @green, @gCol4);
+    height: 100%;
+    weight: 100%;
+    * {
+      display: inline-block;
+      margin-left: 10px ;
+      margin-top: 10px ;
+    }
+    img {
+       
+       
+    }
+  }
+}
+
+
+
+
+
+
+//////////Animation
+
+
+#nav {
+  margin: 30px 50px;
+  width: @menuWidth;
+  .shadow(3px, 3px, 7px, fadeout(@tCol1, 70%));
+  
+  .handle {
+    height: 30px;
+    background: @tCol1;
+    opacity: 0.7;
+  }
+  
+  li {
+    .menuItem {
+      .miTop {
+        font-size: 14px;
+        text-transform: uppercase;
+        background: @tCol1;
+        color: @tCol1;
+        padding: 10px;
+        .gradient(@gCol1, @gCol2);
+        .shadow(0px, 1px, 5px, fadeout(#000, 75%));
+        text-shadow: 1px, 1px, fadeout(#fff, 10%);
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+        
+        &.selected {
+          .gradient(@gCol2, @gCol1);
+        }
+         
+        &:hover {
+          background: @gCol3;
+          //.gradient(@gCol3, @gCol4);
+          color: @tCol3;
+          text-shadow: none;
+        }
+             
+      }
+      .miCon {
+        padding: 12px 17px;
+        height: @blockHeight;
+        line-height: 13px;
+        font-size: 13px;
+        color: @tCol2;
+        .gradient(@green, @gCol1);
+        text-shadow: 1px, 1px, fadeout(#fff, 75%);
+        .hidden;
+      }
+    }
+  }
+}
