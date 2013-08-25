@@ -2,13 +2,14 @@
 <html>
   <head>
     <title>Анкета | <%= yield(:title) %></title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
+    <%= stylesheet_link_tag    "application", media: "all"%> 
+    <%= javascript_include_tag "application"%> 
+    <%= csrf_meta_tags %>
+    <script type="text/javascript" src="less.js"></script>
   </head>
   <body>
-    <%= render 'layouts/header' %>
+      <%= render 'layouts/header' %>
     <div class="container">
       <%= yield %>
       <%= debug(params) if Rails.env.development? %>

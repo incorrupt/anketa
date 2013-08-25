@@ -11,30 +11,38 @@
   <table>
  
   <% @PDeparts.each do |p| %>
-  		<tr>
-  			<th hidden="true"> <%= check_box_tag "show_#{p[0]}", 'no', false  %> </th>
-  			<th colspan="5"><%= p[1] %></ br></th>
+  		<tr>	
+  			<th colspan="8"><%= p[1] %></ br></th>
     	</tr>	
   	<% Depart.where(:parent => p[0]).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>						       
     	<tr class='row'>
     		<td><%= check_box_tag "show_#{d[0]}",'yes',Vote.where(depart_id: d[0], worksheet_id: @worksheet.id ).exists? %></td>
     		
   	   		<td><%= d[1].to_s %></td>
-  	   		    <% vote = Vote.where(depart_id: d[0], factor_id: 1, worksheet_id: @worksheet.id ).first %>
+  	   		    <%  vote = Vote.where(depart_id: d[0], factor_id: 1, worksheet_id: @worksheet.id ).first %>
   	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], { :id=> d[0] } %>
   	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 1, { :id=> d[0] } %>
   	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, { :id=> d[0] } %>
-  	   		<td><%= number_field_tag "worksheet[votes][][value]", ( vote.nil? ? 0 : vote.value ) , { in: 1...101, :id=> d[0] } %> </td>
-  	   		    <% vote = Vote.where(depart_id: d[0], factor_id: 2, worksheet_id: @worksheet.id ).first %>
+  	   		<td><%= number_field_tag "worksheet[votes][][value]", ( vote.nil? ? 0 : vote.value ) , { in: 0...101, :id=> d[0] } %> </td>
+  	   		    <%  vote = Vote.where(depart_id: d[0], factor_id: 2, worksheet_id: @worksheet.id ).first %>
   	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], {:id => d[0] }  %>
   	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 2, {:id => d[0] } %>
   	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, {:id => d[0] } %>
-  	   		<td><%=  select_tag("worksheet[votes][][value]", 
-  	   				 options_for_select(@RList2 , 
-  	   				 (vote.nil? ? 0 : vote.value) 
-  	   				 ),
-  	   				 { :prompt => "Select something", :id => d[0] } )%></td>
-       	</tr> 
+  	   		<td><%=  select_tag("worksheet[votes][][value]", options_for_select(@RList2 , (vote.nil? ? 0 : vote.value) ),
+  	   				            { :prompt => "Select something", :id => d[0] } )%></td>	            
+  	   		  	<%  vote = Vote.where(depart_id: d[0], factor_id: 3, worksheet_id: @worksheet.id ).first %>
+  	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], {:id => d[0] }  %>
+  	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 3, {:id => d[0] } %>
+  	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, {:id => d[0] } %>
+  	   		<td><%=  select_tag("worksheet[votes][][value]", options_for_select(@RList3 , (vote.nil? ? 0 : vote.value) ),
+  	   				            { :prompt => "Select something", :id => d[0] } )%></td>		              
+  	   			<%  vote = Vote.where(depart_id: d[0], factor_id: 4, worksheet_id: @worksheet.id ).first %>
+  	   			<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0], {:id => d[0] }  %>
+  	   			<%= hidden_field_tag "worksheet[votes][][factor_id]", 4, {:id => d[0] } %>
+  	   			<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id, {:id => d[0] } %>
+  	   		<td><%=  select_tag("worksheet[votes][][value]", options_for_select(@RList4 , (vote.nil? ? 0 : vote.value) ),
+  	   				            { :prompt => "Select something", :id => d[0] } )%></td>		                      
+       	</tr>     
     <% end %> 		
   <% end %> 
   </table>  
@@ -44,3 +52,25 @@
 
 <%= link_to 'Show', @worksheet %>  
 <%= link_to 'Back', worksheets_path %>
+
+	<script type="text/javascript"> 
+		
+		var speed = 300;
+		
+		$(function() {
+			$('.miTop').click(
+				function(){
+					if( $(this).hasClass('selected') ) {
+						//alert("-sel");
+						$('.miCon').slideUp(speed);
+						$(this).removeClass('selected');
+					} else {
+						//alert("+sel");
+						$('.miCon').slideUp(speed);
+						$('.miTop').removeClass('selected');
+						$(this).parent('.menuItem').children('.miCon').slideDown(speed);
+						$(this).addClass('selected');
+					}
+				});
+		});
+	</script>
