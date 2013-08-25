@@ -5,8 +5,7 @@ gem 'pg', '0.15.1'
 
 gem 'tzinfo'
 gem 'json'
-gem 'jquery-rails'
-gem 'jqueryui_rails'
+
 gem 'dynamic_form'
 gem 'thin'
 gem 'activerecord-session_store' #, github: 'rails/activerecord-session_store'
