@@ -1,16 +1,17 @@
 
-var speed = 300;
+var speed = 450;
 		
 $(function() {
 	$('.depart-head').click(
 		function(){
 			if( $(this).hasClass('selected') ) {
-				$('.depart').slideUp(speed);
+				//alert("+sel");
+				$('.departs').slideUp(speed);
 				$(this).removeClass('selected');
 			} else {
-				$('.depart').slideUp(speed);
+				$('.departs').slideUp(speed);
 				$('.depart-head').removeClass('selected');
-				$(this).parent('.division').children('.depart').slideDown(speed);
+				$(this).parent('.division').children('.departs').slideDown(speed);
 				$(this).addClass('selected');
 			}
 		});

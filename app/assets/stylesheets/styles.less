@@ -13,14 +13,32 @@
 @rad: 10px;
 ////////////////Global Classes////////////////
 .hidden { display: none; }
+
+.scale (@x ,@y) {
+  transform: scale(@x,@y);
+  //filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand',
+  //  M11=-1, M12=-1,
+  //  M21=1, M22=1);
+}
+.opacity(@v) {
+  opacity: @v;  
+ 
+ // filter: alpha(opacity=((@v * 100));
+}
+
 .gradient (@c1,@c2) {
   background-image: -moz-linear-gradient(top, @c1, @c2);
+  background-image: -ms-linear-gradient(top, @c1, @c2);
+  background-image: -o-linear-gradient(top, @c1, @c2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@c1,endColorstr=@c2,GradientType=0);
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, @c1), color-stop(1.0,@c2));
-  background-color: @c2;
+  background-color: @c1; 
 }  
 .shadow (@x1, @x2 ,@bl, @col) {
   -webkit-box-shadow: @x1 @x2 @bl @col;
   -moz-box-shadow: @x1 @x2 @bl @col;
+  -ms-box-shadow: @x1 @x2 @bl @col;
+  -o-box-shadow: @x1 @x2 @bl @col;
   box-shadow: @x1 @x2 @bl @col;
 }
 ////////////////Main////////////////
@@ -30,8 +48,19 @@ html {
   font-size: 14px; 
 }
 
+.hide {  display: none; }
+
+a {
+  color: #000;
+  text-decoration: none;
+  &:visited{
+    color: #000;
+  }
+}
+
 header {
   position: fixed;
+  z-index: 1;
   background: @gCol1; 
   top: 0;
   left: 0;
@@ -48,89 +77,112 @@ header {
       margin-left: 10px ;
       margin-top: 10px ;
     }
-    img {
-
-    }
+    img { }
     a {
-      font-style: bold;
-      font-size: 50px;
-       
-      vertical-align: baseline;
+      color: #eee;
+      &:visited {
+        color: #eee;
+      }
     }
   }
 }
+
 body {
   background: url("textured_paper.png");
   background-attachment: fixed;
-  //overflow: hidden;
   div.center {
-    margin-top: @headerHeight;
+    .shadow(2px, 4px, 12px, fadeout(#000, 75%));
+    margin: @headerHeight+50;
+    padding: 12px;
     background: @gCol1; 
     height: auto;
-    weight: 200px;
-    overflow: hidden;
+    width: 1500px;
   }
 }
  
- 
-.line-row {
-  display: inline-block;
-}
-  
-.hide{ .hidden; }
-
-
-//////////Animation
-
-
-#nav {
-  margin: 30px 50px;
-  width: @menuWidth;
-  .shadow(3px, 3px, 7px, fadeout(@tCol1, 70%));
-  
-  .handle {
-    height: 30px;
-    background: @tCol1;
-    opacity: 0.7;
-  }
-} 
-
 .division {
   .depart-head {
-        display: block;
-        font-size: 14px;
-        text-transform: uppercase;
-        background: @tCol1;
-        color: @tCol1;
-        padding: 10px;
-        .gradient(@gCol1, @gCol2);
-        .shadow(0px, 1px, 5px, fadeout(#000, 75%));
-        text-shadow: 1px, 1px, fadeout(#fff, 10%);
-        cursor: pointer;
-        transition: all .4s ease-in-out;
-        
-        &.selected {
-          .gradient(@gCol2, @gCol1);
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: @tCol1;
+    color: @tCol1;
+    padding: 10px;
+    .gradient(@gCol1, @gCol2);
+    .shadow(0px, 1px, 5px, fadeout(#000, 75%));
+    text-shadow: 1px, 1px, fadeout(#fff, 10%);
+    cursor: pointer;
+    transition: all .4s ease-in-out;       
+    &.selected {
+      .gradient(@gCol2, @gCol1);
+      text-shadow:1px 1px 1px black, 0 0 5px green;
+      color: @tCol3;
+    }
+    &:hover {
+      //background: @gCol3;
+      .gradient(@gCol3, @gCol2);
+      color: @tCol3;
+      text-shadow:1px 1px 1px black, 0 0 5px green;
+    }      
+  }
+
+       
+
+  .departs {
+    line-height: 13px;
+    margin: 2px;
+    font-size: 13px;
+    color: @tCol2;
+    text-shadow: 1px, 1px, fadeout(#fff, 75%);
+    .gradient(@green, @gCol1);
+    .hidden;   
+    .factors-names {
+      //text-align: center; 
+      display: inline-block;  
+      height: 25px;
+      width: 200px;
+      //div {display: inline; width: 200px; height: 25px; padding: 0px; margin: 0px; }
+    }   
+    .depart { 
+      transition: all .3s linear ;    
+      .opacity(0.6);
+      text-align: center; 
+      div {
+        display: inline-block;  
+        height: 25px;
+        width: 200px;
+        overflow: hidden;
+        &.column1{
+           width: 520px;
+           text-align: left; 
+           label { margin: 0px; width: 520px; cursor: pointer; height: 25px; }
+           * { display: inline; margin: 5px; padding: 0px; margin: 0px; }
         }
-         
-        &:hover {
-          background: @gCol3;
-          //.gradient(@gCol3, @gCol4);
-          color: @tCol3;
-          text-shadow: none;
+        &.column2{
+           margin: 0px;
+           * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
         }
-             
-   }
-  .depart {
-        padding: 12px 17px;
-        height: @blockHeight;
-        line-height: 13px;
-        font-size: 13px;
-        color: @tCol2;
-        .gradient(@green, @gCol1);
-        text-shadow: 1px, 1px, fadeout(#fff, 75%);
-        .hidden;
+        &.column3{
+           margin: 0px;
+           * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
+        }
+        &.column4{
+           margin: 0px;
+           * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
+        }
+        &.column5{
+           margin: 0px;
+           * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
+        }
       }
- }
+      &:hover {
+        .scale(1.07,1.1);
+        font-weight: 800;
+        .opacity(1);
+      }
+    }
+    
+  }
+}
  
 

@@ -5,8 +5,7 @@ class WorksheetsController < ApplicationController
   # GET /worksheets
   def index
     @worksheets = Worksheet.all
-   
-    
+    @worksheet = current_anketa
   end
 
   # GET /worksheets/1
