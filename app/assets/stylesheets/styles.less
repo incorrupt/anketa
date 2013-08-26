@@ -12,7 +12,9 @@
 @headerHeight: 100px;
 @rad: 10px;
 ////////////////Global Classes////////////////
-.hidden { display: none; }
+.hidden { 
+  display: none; 
+}
 
 .scale (@x ,@y) {
   transform: scale(@x,@y);
@@ -126,53 +128,36 @@ body {
     }      
   }
 
-       
-
   .departs {
     line-height: 13px;
-    margin: 2px;
+    margin: 0px, 12px;
     font-size: 13px;
+    text-align: center; 
+    width: 1500px;
     color: @tCol2;
     text-shadow: 1px, 1px, fadeout(#fff, 75%);
     .gradient(@green, @gCol1);
     .hidden;   
     .factors-names {
-      //text-align: center; 
-      display: inline-block;  
-      height: 25px;
-      width: 200px;
-      //div {display: inline; width: 200px; height: 25px; padding: 0px; margin: 0px; }
+      height: 18px;
+      padding: 2px;
+      font-weight: bold;
+      border-bottom: 2px solid;
+      text-shadow: 1px 1px 3px white;
+      * {
+         display: inline-block;
+      }
     }   
     .depart { 
       transition: all .3s linear ;    
       .opacity(0.6);
-      text-align: center; 
-      div {
+      .column1,.column2,.column3,.column4,.column5, {
         display: inline-block;  
         height: 25px;
         width: 200px;
         overflow: hidden;
         &.column1{
            width: 520px;
-           text-align: left; 
-           label { margin: 0px; width: 520px; cursor: pointer; height: 25px; }
-           * { display: inline; margin: 5px; padding: 0px; margin: 0px; }
-        }
-        &.column2{
-           margin: 0px;
-           * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
-        }
-        &.column3{
-           margin: 0px;
-           * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
-        }
-        &.column4{
-           margin: 0px;
-           * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
-        }
-        &.column5{
-           margin: 0px;
-           * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
         }
       }
       &:hover {
@@ -180,9 +165,34 @@ body {
         font-weight: 800;
         .opacity(1);
       }
-    }
-    
+    } 
   }
 }
- 
+
+.column1{
+  width: 520px;
+  text-align: left; 
+  label { margin: 0px; width: 520px; cursor: pointer; height: 25px; }
+  * { display: inline; margin: 5px; padding: 0px; margin: 0px; }
+}
+.column2{
+  width: 200px; 
+  margin: 0px;
+  * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
+}
+.column3{
+  width: 200px; 
+  margin: 0px;
+  * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
+}
+.column4{
+  width: 200px; 
+  margin: 0px;
+  * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
+}
+.column5{
+  width: 200px; 
+  margin: 0px;
+  * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
+}
 

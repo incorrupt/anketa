@@ -5,4 +5,10 @@ class Depart < ActiveRecord::Base
   has_many :worksheets
   has_many :votes
   
+  def self.childrens
+    
+    Depart.where(:parent => self.id).count
+    
+  end
+  
 end

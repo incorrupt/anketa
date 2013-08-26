@@ -23,7 +23,7 @@ class WorksheetsController < ApplicationController
   def edit
     @worksheet = current_anketa
     @votes = Vote.where( worksheet_id: @worksheet.id).all
-    @PDeparts = Depart.where(:parent=>nil).order(:name).all.map { |d| [ d.id , d.name ] }  
+    @PDeparts = Depart.where(:parent=>nil).joins(' JOIN departs dd ON dd.parent = departs.id').select("departs.id,departs.name").group("departs.id,departs.name").having("sum(1) > ?",0).order(:name).all.map { |d| [ d.id , d.name ] }  
     @UDepartsList = Depart.order(:name).all.map { |d| [ d.name , d.id ] }  
     @RList2 = Rate.where(:factor_id=>2).order('rates.value').all.map{|f| [f.name,f.value] }
     @RList3 = Rate.where(:factor_id=>3).order('rates.value').all.map{|f| [f.name,f.value] }
