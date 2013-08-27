@@ -9,7 +9,7 @@
 @green: #468721;
 @menuWidth: 300px;
 @blockHeight: auto;
-@headerHeight: 100px;
+@headerHeight: 180px;
 @rad: 10px;
 ////////////////Global Classes////////////////
 .whl ( @w : 20px , @h : 20px ) {
@@ -82,13 +82,15 @@ header {
   div.container {
     position: relative;
     text-align: center;
-    img { display: inline-block;  }
+    img { display: inline-block;background: url("logo.jpg");  }
     .logo { 
        font-size: 60px;
        font-style: bold;
        font-weight: 900;
        text-transform: uppercase;
        display: inline-block;  
+       
+       overflow: visible;
     }
     .menu {
         .posA(@headerHeight);
