@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Анкета | <%= yield(:title) %></title>
-    <%= render 'layouts/shim' %>
-    <%= stylesheet_link_tag    "application", media: "all"%> 
-    <%= javascript_include_tag "application"%> 
+    <title>Анкета . <%= yield(:title) %></title>
+    <%= stylesheet_link_tag "reset", "fonts" %> 
+    <link rel="stylesheet/less" type="text/css" href="/assets/styles.css?body=1" />
     <%= csrf_meta_tags %>
-    <script type="text/javascript" src="less.js"></script>
+    <%= javascript_include_tag "application"%> 
   </head>
   <body>
       <%= render 'layouts/header' %>

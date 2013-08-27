@@ -1,14 +1,12 @@
 <header>
-     <div class="container">
-          <%= image_tag("rails.png") %>	
-          <%= link_to "Анкета", '/worksheets', class: "logo" %>
-      <!--<nav>
-            <ul class="nav">
-              <li><%= link_to "Home",    '#' %></li>
-              <li><%= link_to "Help",    '#' %></li>
-              <li><%= link_to "Sign in", '#' %></li>
-            </ul>
-       </nav>-->
-       
+	<div class="container">
+		<%= image_tag("rails.png") %>	
+		<%= link_to "Анкета", '/worksheets', class: "logo" %>
+		<ul class="menu">
+			<li><%= link_to "Home", worksheets_path %></li>
+			<li><%= link_to "Help", '#' %></li>
+			<li><%= link_to "About", '#' %></li>
+		</ul>
+     	</nav>  
      </div>
 </header>

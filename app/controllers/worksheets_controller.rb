@@ -14,10 +14,10 @@ class WorksheetsController < ApplicationController
   end
 
   # GET /worksheets/new
-  def new
-    @worksheet = current_anketa
-    redirect_to edit_worksheet_path(@worksheet)
-  end
+ # def new
+#   @worksheet = current_anketa
+ #   redirect_to edit_worksheet_path(@worksheet)
+ # end
 
   # GET /worksheets/1/edit
   def edit
