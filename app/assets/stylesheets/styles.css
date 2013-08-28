@@ -22,12 +22,12 @@
 @rad: 10px;
 
 /*/////////////// Global MiXiN ///////////////*/
-.transn ( @prop: all, @time: 1s, @how: ease-in-out ) {	
-	-webkit-transition:	@prop @time @how ;
-	-moz-transition:	@prop @time @how ;
-	-o-transition:	    @prop @time @how ;
-	-ms-transition:	    @prop @time @how ;
-	transition:	        @prop @time @how ;
+.transn (...) {	
+	-webkit-transition:	@arguments;
+	   -moz-transition: @arguments;
+	    -ms-transition: @arguments;
+	     -o-transition: @arguments;
+	        transition: @arguments;
 }  
 .whl ( @w : 20px , @h : 20px , @l: auto) {
   	width: @w; 
@@ -42,7 +42,7 @@
   	left: @l;
 }
 .text ( @color : @textColorBase, @size: 14px, @style: none ) {
-	font-family: 'PT Sans', sans-serif;
+	  font-family: 'PT Sans', sans-serif;
   	font-size: @size;
   	font-style: @style;
   	color: @color;
@@ -55,10 +55,10 @@
 }
 .scale ( @x ,@y ) {
   	-webkit-transform: scale(@x,@y);
-  	-moz-transform: scale(@x,@y);
-  	-ms-transform: scale(@x,@y);
-  	-o-transform: scale(@x,@y);
-  	transform: scale(@x,@y);
+  	   -moz-transform: scale(@x,@y);
+  	    -ms-transform: scale(@x,@y);
+  	     -o-transform: scale(@x,@y);
+  	        transform: scale(@x,@y);
 }
 .opacity(@v) { 
 	opacity: @v;
@@ -66,34 +66,44 @@
 .gradient (@c1,@c2) {
   	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, @c1), color-stop(1.0,@c2));
   	background-image: -moz-linear-gradient(top, @c1, @c2);
-  	background-image: -ms-linear-gradient(top, @c1, @c2);
-  	background-image: -o-linear-gradient(top, @c1, @c2);
+  	background-image:  -ms-linear-gradient(top, @c1, @c2);
+  	background-image:   -o-linear-gradient(top, @c1, @c2);
   	/*background-color: @c1;*/ 
   	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@c1,endColorstr=@c2,GradientType=0);
 }  
 .shadow (@x1, @x2 ,@bl, @col) {
   	-webkit-box-shadow: @x1 @x2 @bl @col;
-  	-moz-box-shadow: @x1 @x2 @bl @col;
-  	-ms-box-shadow: @x1 @x2 @bl @col;
-  	-o-box-shadow: @x1 @x2 @bl @col;
-  	box-shadow: @x1 @x2 @bl @col;
+  	   -moz-box-shadow: @x1 @x2 @bl @col;
+  	    -ms-box-shadow: @x1 @x2 @bl @col;
+  	     -o-box-shadow: @x1 @x2 @bl @col;
+  	        box-shadow: @x1 @x2 @bl @col;
 }
-.tshadow(@c , @s , @x ,@y) {
+.tshadow(@c, @s, @x, @y) {
   	text-shadow: @x @y @s @c;
 }
+.transform(...) {
+    -webkit-transform: @arguments;
+       -moz-transform: @arguments;
+        -ms-transform: @arguments;
+         -o-transform: @arguments;
+            transform: @arguments;
+}
+
 /*////////////// MiXin Key-Frames-Animation //////////////////
  * stolen from http://stackoverflow.com/questions/11551313 */
-.keyframes(@name, @from, @to) {
+.keyframes(@name, @0, @50, @100) {
     @newline: `"\n"`;
     .Local(@x){};
     .Local(@x) when (@x="") {(~"}@{newline}/*"){a:a}/**/};
-
     .setVendor(@pre, @vendor) {
-        (~"@{pre}@@{vendor}keyframes @{name} {@{newline}from") {
-            .from(@from);
+        (~"@{pre}@@{vendor}keyframes @{name} { @{newline} 0%") {
+            .stage(@0);
         }
-        to {
-            .to(@to);
+        50% {
+            .stage(@50);
+        }
+        100% {
+            .stage(@100);
         }
         .Local(@vendor);
     }
@@ -106,17 +116,18 @@
 .animation(...) {
   -webkit-animation: @arguments;
      -moz-animation: @arguments;
+      -ms-animation: @arguments;
        -o-animation: @arguments;
           animation: @arguments;
 }
 /*//////////////// Init Animations Mixins /////////////*/
-.from(a1-from) { rotate(0deg); }
-.to(a1-to) {  rotate(360deg); }
-.keyframes(a1-animation, a1-from, a1-to);
+.stage(flip) { .transform( rotate(0deg) );}
+.stage(flap) { .transform( rotate(360deg) ); }
+.keyframes(flip-flap, flip, flap, flip);
 
-
-	
-    
+.stage(pulse1) { .tshadow(red, 0px ,0px ,0px ); ; }
+.stage(pulse2) { .tshadow(red, 12px ,0px ,0px ); ; }
+.keyframes( white-text-pulse, pulse1, pulse2, pulse1);
 
 /*/////////////// Optimize Main Elements /////////////*/
 ::-webkit-scrollbar { display: none; } 
@@ -149,7 +160,7 @@ header {
     		background: url("logo.png") no-repeat center ;
     		background-size: contain;
     		display: inline-block;
-    		.animation(a1-animation 5s infinite ease-in-out);
+    		&:hover {.animation(flip-flap 3s infinite ease-in-out);}
     	}
     	label.logo {
     		margin-left: 100px;
@@ -158,9 +169,7 @@ header {
       		text-transform: uppercase;
       		font-family: 'Calisto MT', century ;
       		display: inline-block;
-      		&:hover { 
-            	.tshadow(@textColor0, 6px ,1px ,1px ); 
-          	}
+      		&:hover {.animation(white-text-pulse 2s infinite linear);}
     	}
     	a.logo { 
     		margin-left: 50px; 
@@ -182,7 +191,8 @@ header {
           		.transn(all, .5s );     
           		.text (@textColor0, 17px, 500 );
           		&:hover { 
-            		.tshadow(@textColor1, 5px ,0px ,0px ); 
+          		  .animation(white-text-pulse 2s infinite ease-in-out);
+            		//.tshadow(@textColor1, 5px ,0px ,0px ); 
           		}
         	}
       	}
