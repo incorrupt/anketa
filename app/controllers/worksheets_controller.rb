@@ -13,12 +13,6 @@ class WorksheetsController < ApplicationController
     @worksheet = current_anketa
   end
 
-  # GET /worksheets/new
- # def new
-#   @worksheet = current_anketa
- #   redirect_to edit_worksheet_path(@worksheet)
- # end
-
   # GET /worksheets/1/edit
   def edit
     @worksheet = current_anketa
@@ -33,6 +27,7 @@ class WorksheetsController < ApplicationController
 
   # PATCH/PUT /worksheets/1
   def update
+    # @worksheet = current_anketa
     p params
     if @worksheet.update(worksheet_params)
       worksheet_params[:votes].each do |v|

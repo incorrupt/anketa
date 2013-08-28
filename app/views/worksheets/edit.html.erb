@@ -7,7 +7,7 @@
 <%= f.number_field :contrib , in: 1...101  %> </br >
 <%= f.label "Подразделение" %>
 <%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,
-  { :include_blank =>' -- Please select Yours Depart --' } )%>
+  		{ :include_blank =>' -- Please select Yours Depart --' } )%>
 <%= f.submit "Отправить" %> 
 
 <% @PDeparts.each do |p| %>
@@ -76,3 +76,6 @@
 
 <% end %> 
 
+<script src="/assets/worksheet_edit.js?body=1"></script>
+
+ 

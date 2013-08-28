@@ -1,115 +1,194 @@
-////////////////Globals////////////////
+
+/*/////////// Global Const /////////////*/
+@textColorBase: black;
+@textColor0: black;
+@textColor1: white;
+@textColor2: #00A34D;
+@textColor3: blue;
+@headerHeight: 150px;
+
 @gCol1: #eee;
 @gCol2: darken(@gCol1,20%);
 @gCol3: darken(@gCol1,60%);
 @gCol4: darken(@gCol3,20%);
+
 @tCol1: #222;
 @tCol2: #111;
 @tCol3: #ddd;
-@green: #468721;
+/*@green: #468721;*/
 @menuWidth: 300px;
 @blockHeight: auto;
-@headerHeight: 180px;
+@anim: anim;
 @rad: 10px;
-////////////////Global Classes////////////////
-.whl ( @w : 20px , @h : 20px ) {
-  width: @w; 
-  height: @h;
-  line-height: @h;
+
+/*/////////////// Global MiXiN ///////////////*/
+.transn ( @prop: all, @time: 1s, @how: ease-in-out ) {	
+	-webkit-transition:	@prop @time @how ;
+	-moz-transition:	@prop @time @how ;
+	-o-transition:	    @prop @time @how ;
+	-ms-transition:	    @prop @time @how ;
+	transition:	        @prop @time @how ;
+}  
+.whl ( @w : 20px , @h : 20px , @l: auto) {
+  	width: @w; 
+  	height: @h;
+  	line-height: @h;
 } 
-.posA (@t: auto, @r: auto, @b: auto, @l: auto){
-  position: absolute;
-  top: @t; 
-  right: @r;
-  bottom: @b;
-  left: @l;
+.posA ( @t: auto, @r: auto, @b: auto, @l: auto ) {
+  	position: absolute;
+  	top: @t; 
+  	right: @r;
+  	bottom: @b;
+  	left: @l;
+}
+.text ( @color : @textColorBase, @size: 14px, @style: none ) {
+	font-family: 'PT Sans', sans-serif;
+  	font-size: @size;
+  	font-style: @style;
+  	color: @color;
+  	.tshadow( @color, 1px ,0 ,0 );
+  	/*font-smooth: always;*/
+  	/*text-rendering: optimizeSpeed;*/
 }
 .hidden { 
-  display: none; 
+	display: none; 
 }
-.scale (@x ,@y) {
-  -webkit-transform: scale(@x,@y);
-  -moz-transform: scale(@x,@y);
-  -ms-transform: scale(@x,@y);
-  -o-transform: scale(@x,@y);
-  transform: scale(@x,@y);
+.scale ( @x ,@y ) {
+  	-webkit-transform: scale(@x,@y);
+  	-moz-transform: scale(@x,@y);
+  	-ms-transform: scale(@x,@y);
+  	-o-transform: scale(@x,@y);
+  	transform: scale(@x,@y);
 }
-.opacity(@v) {
-  opacity: @v;  
+.opacity(@v) { 
+	opacity: @v;
 }
 .gradient (@c1,@c2) {
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, @c1), color-stop(1.0,@c2));
-  background-image: -moz-linear-gradient(top, @c1, @c2);
-  background-image: -ms-linear-gradient(top, @c1, @c2);
-  background-image: -o-linear-gradient(top, @c1, @c2);
-  background-color: @c1; 
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@c1,endColorstr=@c2,GradientType=0);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, @c1), color-stop(1.0,@c2));
+  	background-image: -moz-linear-gradient(top, @c1, @c2);
+  	background-image: -ms-linear-gradient(top, @c1, @c2);
+  	background-image: -o-linear-gradient(top, @c1, @c2);
+  	/*background-color: @c1;*/ 
+  	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@c1,endColorstr=@c2,GradientType=0);
 }  
 .shadow (@x1, @x2 ,@bl, @col) {
-  -webkit-box-shadow: @x1 @x2 @bl @col;
-  -moz-box-shadow: @x1 @x2 @bl @col;
-  -ms-box-shadow: @x1 @x2 @bl @col;
-  -o-box-shadow: @x1 @x2 @bl @col;
-  box-shadow: @x1 @x2 @bl @col;
+  	-webkit-box-shadow: @x1 @x2 @bl @col;
+  	-moz-box-shadow: @x1 @x2 @bl @col;
+  	-ms-box-shadow: @x1 @x2 @bl @col;
+  	-o-box-shadow: @x1 @x2 @bl @col;
+  	box-shadow: @x1 @x2 @bl @col;
 }
 .tshadow(@c , @s , @x ,@y) {
-  text-shadow: @x @y @s @c;
-  //filter: Shadow(Color=@c, Direction=200, Strength=3px);
+  	text-shadow: @x @y @s @c;
 }
+/*////////////// MiXin Key-Frames-Animation //////////////////
+ * stolen from http://stackoverflow.com/questions/11551313 */
+.keyframes(@name, @from, @to) {
+    @newline: `"\n"`;
+    .Local(@x){};
+    .Local(@x) when (@x="") {(~"}@{newline}/*"){a:a}/**/};
 
-
-////////////////Main////////////////
-html {
-  list-style: none;
-  font-family: 'PT Sans', sans-serif;
-  font-size: 14px; 
-}
-
-a {
-  color: #000;
-  text-decoration: none;
-  &:visited{
-    color: #000;
-  }
-}
-
-header {
-  .whl(100%, @headerHeight);
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  
-  div.container {
-    position: relative;
-    text-align: center;
-    img { display: inline-block;background: url("logo.jpg");  }
-    .logo { 
-       font-size: 60px;
-       font-style: bold;
-       font-weight: 900;
-       text-transform: uppercase;
-       display: inline-block;  
-       
-       overflow: visible;
-    }
-    .menu {
-        .posA(@headerHeight);
-        .whl(100%; 40px; );
-        .gradient( @green, @gCol4);
-        text-align: center; 
-        li {
-          display: inline-block;
-          .whl(80px;40px);
-          transition: all .5s ease-in-out;   
-          &:hover {
-           .tshadow(white , 5px , 0px ,0px) ; 
-          }
-         
+    .setVendor(@pre, @vendor) {
+        (~"@{pre}@@{vendor}keyframes @{name} {@{newline}from") {
+            .from(@from);
         }
-      }
-    
-  }
+        to {
+            .to(@to);
+        }
+        .Local(@vendor);
+    }
+    .setVendor(""            , "-webkit-");
+    .setVendor(~"}@{newline}",    "-moz-");
+    .setVendor(~"}@{newline}",      "-o-");
+    .setVendor(~"}@{newline}",         "");
 }
+
+.animation(...) {
+  -webkit-animation: @arguments;
+     -moz-animation: @arguments;
+       -o-animation: @arguments;
+          animation: @arguments;
+}
+/*//////////////// Init Animations Mixins /////////////*/
+.from(a1-from) { rotate(0deg); }
+.to(a1-to) {  rotate(360deg); }
+.keyframes(a1-animation, a1-from, a1-to);
+
+
+	
+    
+
+/*/////////////// Optimize Main Elements /////////////*/
+::-webkit-scrollbar { display: none; } 
+ 
+html {
+	list-style: none;
+	.text;
+	/*overflow-y:hidden;*/
+}
+a {
+	text-decoration: none;
+	color: @textColorBase;
+	&:visited{ color: @textColorBase };
+}
+
+/*/////////////// Here Starts CSS Makeup ///////////////*/
+header {
+	.whl(100%, @headerHeight);
+	position: fixed;
+  	z-index: 1;
+  	top: 0;
+  	background-color: @textColor1;
+  	div.container {
+  		position: relative;
+    	.whl(100%, 100% , auto);
+    	text-align: left;
+    	div.logo {
+    		.posA(10px, auto, 20px, 10px );
+    		.whl( (@headerHeight - 70) , (@headerHeight - 30), (@headerHeight - 30) ); 
+    		background: url("logo.png") no-repeat center ;
+    		background-size: contain;
+    		display: inline-block;
+    		.animation(a1-animation 5s infinite ease-in-out);
+    	}
+    	label.logo {
+    		margin-left: 100px;
+    		.whl( auto , @headerHeight);  
+      		.text (@textColor2, 60px, 1000 ); 
+      		text-transform: uppercase;
+      		font-family: 'Calisto MT', century ;
+      		display: inline-block;
+      		&:hover { 
+            	.tshadow(@textColor0, 6px ,1px ,1px ); 
+          	}
+    	}
+    	a.logo { 
+    		margin-left: 50px; 
+    		.whl( auto , @headerHeight); 
+    		.text (@textColor0 , 60px, 1000 ); 
+      		text-transform: uppercase;
+      		display: inline-block;
+      		.hidden;
+    	}
+    	.menu {
+        	.posA(@headerHeight);
+        	.whl(100%, 40px );
+        	.gradient( @textColor2, @gCol4 );
+        	text-align: left; 
+        	li {
+         	 	margin-left: 10%;
+          		display: inline-block;
+          		.whl(80px, 40px );
+          		.transn(all, .5s );     
+          		.text (@textColor0, 17px, 500 );
+          		&:hover { 
+            		.tshadow(@textColor1, 5px ,0px ,0px ); 
+          		}
+        	}
+      	}
+  	}	
+}
+
 
 body {
   background: url("textured_paper.png");
@@ -117,7 +196,6 @@ body {
   div.center {
     .shadow(2px, 4px, 12px, fadeout(#000, 75%));
     margin-top: @headerHeight+50;
-    
     padding: 12px;
     background: @gCol1; 
     height: auto;
@@ -127,27 +205,27 @@ body {
  
 .division {
   .depart-head {
-    display: block;
-    font-size: 14px;
-    text-transform: uppercase;
-    background: @tCol1;
-    color: @tCol1;
-    padding: 10px;
-    .gradient(@gCol1, @gCol2);
-    .shadow(0px, 1px, 5px, fadeout(#000, 75%));
-    text-shadow: 1px, 1px, fadeout(#fff, 10%);
-    cursor: pointer;
-    transition: all .4s ease-in-out;       
-    &.selected {
-      .gradient(@gCol2, @gCol1);
-      text-shadow: 1px 1px 1px black, 0 0 5px green;
-      color: @tCol3;
-    }
-    &:hover {
-      .gradient(@gCol3, @gCol2);
-      color: @tCol3;
-      text-shadow:1px 1px 1px black, 0 0 5px green;
-    }      
+    	display: block;
+    	font-size: 14px;
+    	text-transform: uppercase;
+    	background: @tCol1;
+    	color: @tCol1;
+    	cursor: pointer;
+    	padding: 10px;
+    	text-shadow: 1px, 1px, fadeout(#fff, 10%);
+    	.gradient(@gCol1, @gCol2);
+    	.shadow(0px, 1px, 5px, fadeout(#000, 75%));
+    	.transn(all, .4s);    
+    	&.selected {
+      		text-shadow: 1px 1px 1px black, 0 0 5px green;
+      		color: @tCol3; 
+      		.gradient(@gCol1, @gCol3);
+    	}
+    	&:hover {
+      		.gradient(@gCol3, @gCol2);
+      		color: @tCol3;
+      		text-shadow:1px 1px 1px black, 0 0 5px green;
+    	}      
   }
 
   .departs {
@@ -158,7 +236,7 @@ body {
     width: 1450px;
     color: @tCol2;
     text-shadow: 1px, 1px, fadeout(#fff, 75%);
-    .gradient(@green, @gCol1);
+    .gradient(@gCol3, @gCol1);
     .hidden;   
     .factors-names {
       height: 18px;
@@ -171,22 +249,22 @@ body {
       }
     }   
     .depart { 
-      transition: all .3s linear ;    
-      .opacity(0.6);
-      .column1,.column2,.column3,.column4,.column5, {
-        display: inline-block;  
-        height: 25px;
-        width: 200px;
-        overflow: hidden;
-        &.column1{
-           width: 520px;
+        .transn(all, .3s);
+        .opacity(0.6);
+        .column1,.column2,.column3,.column4,.column5, {
+        	display: inline-block;  
+        	height: 25px;
+        	width: 200px;
+        	overflow: hidden;
+        	&.column1{
+           		width: 520px;
+        	}
         }
-      }
-      &:hover {
-        .scale(1.07,1.1);
-        font-weight: 800;
-        .opacity(1);
-      }
+      	&:hover {
+      		font-weight: 500;
+        	.scale(1.07,1.1);
+        	.opacity(1);
+      	}
     } 
   }
 }
