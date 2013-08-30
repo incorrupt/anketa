@@ -31,7 +31,7 @@ class WorksheetsController < ApplicationController
     p params
     if @worksheet.update(worksheet_params)
       worksheet_params[:votes].each do |v|
-        if v[:value].to_f > 0
+        if  worksheet_params[:show].include? v[:depart_id].to_s
          vote = Vote.find_or_create_by(factor_id: v[:factor_id], worksheet_id: v[:worksheet_id],depart_id: v[:depart_id]) 
          vote.value = v[:value].to_f
          vote.save 

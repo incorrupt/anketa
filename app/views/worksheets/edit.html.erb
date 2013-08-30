@@ -1,4 +1,7 @@
 <h1>Editing worksheet</h1>
+<p class="notice"> <%= notice %></p>
+<ul class="validation"></ul>
+  
 
 <%= render 'form' %>
 
@@ -15,61 +18,61 @@
 	<div class="depart-head">
 		<%= p[1] %>
 	</div>
-
-	<div class="departs">
-		
-		<div class="factors-names">
-			<div class="column1"><%= label_tag "Наименование подразделения" %>
-			</div>
-			<div class="column2"><%= label_tag Factor.find(1).name %>
-			</div>
-			<div class="column3"><%= label_tag Factor.find(2).name %>
-			</div>
-			<div class="column4"><%= label_tag Factor.find(3).name %>
-			</div>
-			<div class="column5"><%= label_tag Factor.find(4).name %>
-			</div>
-		</div>
+	
+    <div class="departs">
+	<table >
+		<tr class="factors-names">
+			<td class="column1"><%="Наименование подразделения" %>
+			</td>
+			<td class="column2"><%= Factor.find(1).name %>
+			</td>
+			<td class="column3"><%= Factor.find(2).name %>
+			</td>
+			<td class="column4"><%= Factor.find(3).name %>
+			</td>
+			<td class="column5"><%= Factor.find(4).name %>
+			</td>
+		</tr>
 		<% Depart.where(parent: p[0]).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>
-		<div class="depart">
-			<div class="column1 depart-name"> 
-				<%= check_box_tag "show",'yes',Vote.where(depart_id: d[0], worksheet_id: @worksheet.id ).exists? , class: "check-depart" %>
-				<%= label_tag "show", d[1] %> 
-			</div>
-			<div class="column2"> 
+		<tr class="depart">
+			<td class="column1 depart-name"> 
+				<%= check_box_tag "worksheet[show][]", d[0]  ,Vote.where(depart_id: d[0], worksheet_id: @worksheet.id ).exists? , class: "check-depart" %>
+				<%= d[1] %> 
+			</td>
+			<td class="column2"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 1, worksheet_id: @worksheet.id ).first %>
-				<%= number_field_tag "worksheet[votes][][value]", ( vote.nil? ? 0 : vote.value ), in: 0...101 %>
+				<%= number_field_tag "worksheet[votes][][value]", ( vote.nil? ? 0 : vote.value.to_i ), in: 0...101, class: "factor1"  %>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 1 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
-			</div>
-			<div class="column3"> 
+			</td>
+			<td class="column3"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 2, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList2, (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something" } )%>
+					{ :prompt => "Select something", class: "factor2" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 2 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
-			</div>
-			<div class="column4"> 
+			</td>
+			<td class="column4"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 3, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList3, (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something" } )%>
+					{ :prompt => "Select something", class: "factor3" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 3 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
-			</div>
-			<div class="column5"> 
+			</td>
+			<td class="column5"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 4, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList4 , (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something" } )%>
+					{ :prompt => "Select something", class: "factor4" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 4 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
-			</div>
-		</div>
+			</td>
+		</tr>
 		<% end %>
-		
+	</table>
 	</div>
 </div>
 <% end %>

@@ -6,6 +6,7 @@
 @textColor2: #00A34D;
 @textColor3: blue;
 @headerHeight: 150px;
+@centerWidth: 1450px;
 
 @gCol1: #eee;
 @gCol2: darken(@gCol1,20%);
@@ -22,13 +23,7 @@
 @rad: 10px;
 
 /*/////////////// Global MiXiN ///////////////*/
-.transn (...) {	
-	-webkit-transition:	@arguments;
-	   -moz-transition: @arguments;
-	    -ms-transition: @arguments;
-	     -o-transition: @arguments;
-	        transition: @arguments;
-}  
+
 .whl ( @w : 20px , @h : 20px , @l: auto) {
   	width: @w; 
   	height: @h;
@@ -42,7 +37,7 @@
   	left: @l;
 }
 .text ( @color : @textColorBase, @size: 14px, @style: none ) {
-	  font-family: 'PT Sans', sans-serif;
+	font-family: 'PT Sans', sans-serif;
   	font-size: @size;
   	font-style: @style;
   	color: @color;
@@ -88,7 +83,20 @@
          -o-transform: @arguments;
             transform: @arguments;
 }
-
+.animation(...) {
+  -webkit-animation: @arguments;
+     -moz-animation: @arguments;
+      -ms-animation: @arguments;
+       -o-animation: @arguments;
+          animation: @arguments;
+}
+.transn (...) {	
+	-webkit-transition:	@arguments;
+	   -moz-transition: @arguments;
+	    -ms-transition: @arguments;
+	     -o-transition: @arguments;
+	        transition: @arguments;
+}  
 /*////////////// MiXin Key-Frames-Animation //////////////////
  * stolen from http://stackoverflow.com/questions/11551313 */
 .keyframes(@name, @0, @50, @100) {
@@ -113,21 +121,18 @@
     .setVendor(~"}@{newline}",         "");
 }
 
-.animation(...) {
-  -webkit-animation: @arguments;
-     -moz-animation: @arguments;
-      -ms-animation: @arguments;
-       -o-animation: @arguments;
-          animation: @arguments;
-}
+
 /*//////////////// Init Animations Mixins /////////////*/
 .stage(flip) { .transform( rotate(0deg) );}
 .stage(flap) { .transform( rotate(360deg) ); }
 .keyframes(flip-flap, flip, flap, flip);
 
-.stage(pulse1) { .tshadow(red, 0px ,0px ,0px ); ; }
-.stage(pulse2) { .tshadow(red, 12px ,0px ,0px ); ; }
+.stage(pulse1) { .tshadow(white, 0px ,0px ,0px ); ; }
+.stage(pulse2) { .tshadow(white, 11px ,0px ,0px ); ; }
 .keyframes( white-text-pulse, pulse1, pulse2, pulse1);
+
+.stage(roll) {.transform( rotate(180deg));} 
+.keyframes(roll, flip ,roll, flap);
 
 /*/////////////// Optimize Main Elements /////////////*/
 ::-webkit-scrollbar { display: none; } 
@@ -135,7 +140,6 @@
 html {
 	list-style: none;
 	.text;
-	/*overflow-y:hidden;*/
 }
 a {
 	text-decoration: none;
@@ -160,7 +164,7 @@ header {
     		background: url("logo.png") no-repeat center ;
     		background-size: contain;
     		display: inline-block;
-    		&:hover {.animation(flip-flap 3s infinite ease-in-out);}
+    		&:hover {.animation(roll 1s infinite linear);}
     	}
     	label.logo {
     		margin-left: 100px;
@@ -169,7 +173,7 @@ header {
       		text-transform: uppercase;
       		font-family: 'Calisto MT', century ;
       		display: inline-block;
-      		&:hover {.animation(white-text-pulse 2s infinite linear);}
+      		&:hover {.animation(white-text-pulse .8s infinite linear);}
     	}
     	a.logo { 
     		margin-left: 50px; 
@@ -180,20 +184,23 @@ header {
       		.hidden;
     	}
     	.menu {
-        	.posA(@headerHeight);
+        	.posA(@headerHeight,0,auto,0);
+        	display: inline;
         	.whl(100%, 40px );
         	.gradient( @textColor2, @gCol4 );
         	text-align: left; 
         	li {
          	 	margin-left: 10%;
-          		display: inline-block;
+          		display: inline;
           		.whl(80px, 40px );
-          		.transn(all, .5s );     
-          		.text (@textColor0, 17px, 500 );
-          		&:hover { 
-          		  .animation(white-text-pulse 2s infinite ease-in-out);
-            		//.tshadow(@textColor1, 5px ,0px ,0px ); 
+          		* { 
+          			text-transform: uppercase;
+          			.text(white, 20px, bold );
+          			&:hover { 
+          		    	.animation(white-text-pulse 2s infinite ease-in-out);
+          			}
           		}
+          		
         	}
       	}
   	}	
@@ -205,103 +212,91 @@ body {
   background-attachment: fixed;
   div.center {
     .shadow(2px, 4px, 12px, fadeout(#000, 75%));
-    margin-top: @headerHeight+50;
-    padding: 12px;
+    .posA(@headerHeight+50,auto,auto,5%);
+    padding: 20px;
     background: @gCol1; 
-    height: auto;
-    width: 1450px;
+    .whl(@centerWidth, auto );
   }
 }
  
 .division {
-  .depart-head {
+	.depart-head {
+		background: @textColor2;
+  	    border: white 1px ridge;
+  	    .gradient(@gCol1, @gCol2);
     	display: block;
-    	font-size: 14px;
     	text-transform: uppercase;
-    	background: @tCol1;
-    	color: @tCol1;
+    	.text (@tCol1, 14px, none );
     	cursor: pointer;
     	padding: 10px;
-    	text-shadow: 1px, 1px, fadeout(#fff, 10%);
-    	.gradient(@gCol1, @gCol2);
     	.shadow(0px, 1px, 5px, fadeout(#000, 75%));
     	.transn(all, .4s);    
     	&.selected {
-      		text-shadow: 1px 1px 1px black, 0 0 5px green;
-      		color: @tCol3; 
+      		.text (@tCol3, 14px, none );
       		.gradient(@gCol1, @gCol3);
     	}
     	&:hover {
       		.gradient(@gCol3, @gCol2);
-      		color: @tCol3;
-      		text-shadow:1px 1px 1px black, 0 0 5px green;
+      		.text (@tCol3, 14px, none );
     	}      
-  }
-
-  .departs {
-    line-height: 13px;
-    margin: 0px, 12px;
-    font-size: 13px;
-    text-align: center; 
-    width: 1450px;
-    color: @tCol2;
-    text-shadow: 1px, 1px, fadeout(#fff, 75%);
-    .gradient(@gCol3, @gCol1);
-    .hidden;   
-    .factors-names {
-      height: 18px;
-      padding: 2px;
-      font-weight: bold;
-      border-bottom: 2px solid;
-      text-shadow: 1px 1px 3px white;
-      * {
-         display: inline-block;
-      }
-    }   
-    .depart { 
-        .transn(all, .3s);
-        .opacity(0.6);
-        .column1,.column2,.column3,.column4,.column5, {
-        	display: inline-block;  
-        	height: 25px;
-        	width: 200px;
-        	overflow: hidden;
-        	&.column1{
-           		width: 520px;
-        	}
-        }
-      	&:hover {
-      		font-weight: 500;
-        	.scale(1.07,1.1);
-        	.opacity(1);
-      	}
-    } 
-  }
+	}
+	.departs {
+    	.text (@tCol2, 13px, none );
+    	text-align: center; 
+    	width: @centerWidth;
+    	/*//text-shadow: 1px, 1px, fadeout(#fff, 75%);*/
+    	.gradient(@gCol3, @gCol1);
+ 		.hidden;   		
+ 		&.selected {
+  			background: white;
+  		}
+  		table {
+  			margin-left: 50px;vertical-align: middle;
+  			tr,th {vertical-align: middle;}
+  		}  
+		.factors-names {
+      		height: 25px;
+      		.text ( white, 15px,bold );
+      		border-bottom: black 2px solid;
+      		* { display: inline-block; }
+    	}   
+   		 .depart { 
+    	 	&.selected {
+  				background: white;
+  			}
+        	.transn(all, .3s);
+        	.opacity(0.6);
+        	.column1,.column2,.column3,.column4,.column5, {
+        		display: inline-block;  
+        		overflow: hidden;
+ 			}
+      		&:hover {
+      			font-weight: bold;
+      			font-size: 13px;
+        		.opacity(1);
+      		}
+    	} 
+  	}
 }
 
 .column1{
   width: 520px;
   text-align: left; 
-  label { margin: 0px; width: 520px; cursor: pointer; height: 25px; }
-  * { display: inline; margin: 5px; padding: 0px; margin: 0px; }
+  margin: 0px;
+  padding: 3px;
+  * { display: inline; }
 }
-.column2{
+.column2,.column3,.column4,.column5{
   width: 200px; 
   margin: 0px;
-  * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
+  display: inline-block;  
+  * { margin: 5px; }
 }
-.column3{
-  width: 200px; 
-  margin: 0px;
-  * { width: 200px; height: 25px; padding: 0px; margin: 0px; }
+ 
+.notice {
+	
 }
-.column4{
-  width: 200px; 
-  margin: 0px;
-  * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
-}
-.column5{
-  width: 200px; 
-  margin: 0px;
-  * { width: 200px;height: 25px; padding: 0px; margin: 0px; }
+.invalid{
+	color: red;
+	border: red 1px solid;
 }
