@@ -2,6 +2,11 @@
 class WorksheetsController < ApplicationController
   before_action :set_worksheet, only: [:show, :edit, :update, :destroy]
 
+  # GET /home
+  def home
+    @worksheet = current_anketa
+  end
+
   # GET /worksheets
   def index
     @worksheets = Worksheet.all
@@ -22,7 +27,7 @@ class WorksheetsController < ApplicationController
     @RList2 = Rate.where(:factor_id=>2).order('rates.value').all.map{|f| [f.name,f.value] }
     @RList3 = Rate.where(:factor_id=>3).order('rates.value').all.map{|f| [f.name,f.value] }
     @RList4 = Rate.where(:factor_id=>4).order('rates.value').all.map{|f| [f.name,f.value] }
-    
+    @RList5 = Rate.where(:factor_id=>5).order('rates.value').all.map{|f| [f.name,f.value] }  
   end
 
   # PATCH/PUT /worksheets/1
@@ -39,7 +44,9 @@ class WorksheetsController < ApplicationController
          Vote.destroy_all(factor_id: v[:factor_id], worksheet_id: v[:worksheet_id],depart_id: v[:depart_id]) 
         end 
       end
-      redirect_to @worksheet, notice:  worksheet_params  #'Worksheet was successfully updated.'
+      @worksheet.ending= Time.now
+      @worksheet.save
+      redirect_to @worksheet, notice: 'Worksheet was successfully updated.'
     else
       render action: 'edit'
     end

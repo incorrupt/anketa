@@ -1,10 +1,10 @@
 
 /*/////////// Global Const /////////////*/
-@textColorBase: black;
-@textColor0: black;
-@textColor1: white;
-@textColor2: #00A34D;
-@textColor3: blue;
+@ColorBase: black;
+@Color0: black;
+@Color1: white;
+@Color2: #00A34D;
+@Color3: #00FF15;
 @headerHeight: 150px;
 @centerWidth: 1450px;
 
@@ -16,7 +16,6 @@
 @tCol1: #222;
 @tCol2: #111;
 @tCol3: #ddd;
-/*@green: #468721;*/
 @menuWidth: 300px;
 @blockHeight: auto;
 @anim: anim;
@@ -36,14 +35,12 @@
   	bottom: @b;
   	left: @l;
 }
-.text ( @color : @textColorBase, @size: 14px, @style: none ) {
+.text ( @color : @ColorBase, @size: 14px, @style: none ) {
 	font-family: 'PT Sans', sans-serif;
   	font-size: @size;
   	font-style: @style;
   	color: @color;
   	.tshadow( @color, 1px ,0 ,0 );
-  	/*font-smooth: always;*/
-  	/*text-rendering: optimizeSpeed;*/
 }
 .hidden { 
 	display: none; 
@@ -63,7 +60,6 @@
   	background-image: -moz-linear-gradient(top, @c1, @c2);
   	background-image:  -ms-linear-gradient(top, @c1, @c2);
   	background-image:   -o-linear-gradient(top, @c1, @c2);
-  	/*background-color: @c1;*/ 
   	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@c1,endColorstr=@c2,GradientType=0);
 }  
 .shadow (@x1, @x2 ,@bl, @col) {
@@ -142,9 +138,10 @@ html {
 	.text;
 }
 a {
+	cursor: pointer;
 	text-decoration: none;
-	color: @textColorBase;
-	&:visited{ color: @textColorBase };
+	color: @ColorBase;
+	&:visited{ color: @ColorBase };
 }
 
 /*/////////////// Here Starts CSS Makeup ///////////////*/
@@ -153,7 +150,9 @@ header {
 	position: fixed;
   	z-index: 1;
   	top: 0;
-  	background-color: @textColor1;
+  	background: white; //url("clouds6-1.jpg") no-repeat center ;
+  	background-size: cover;
+  	background-attachment: fixed;
   	div.container {
   		position: relative;
     	.whl(100%, 100% , auto);
@@ -162,14 +161,14 @@ header {
     		.posA(10px, auto, 20px, 10px );
     		.whl( (@headerHeight - 70) , (@headerHeight - 30), (@headerHeight - 30) ); 
     		background: url("logo.png") no-repeat center ;
-    		background-size: contain;
+    		background-size: cover;
     		display: inline-block;
     		&:hover {.animation(roll 1s infinite linear);}
     	}
     	label.logo {
     		margin-left: 100px;
     		.whl( auto , @headerHeight);  
-      		.text (@textColor2, 60px, 1000 ); 
+      		.text (@Color2, 60px, 1000 ); 
       		text-transform: uppercase;
       		font-family: 'Calisto MT', century ;
       		display: inline-block;
@@ -178,7 +177,7 @@ header {
     	a.logo { 
     		margin-left: 50px; 
     		.whl( auto , @headerHeight); 
-    		.text (@textColor0 , 60px, 1000 ); 
+    		.text (@Color0 , 60px, 1000 ); 
       		text-transform: uppercase;
       		display: inline-block;
       		.hidden;
@@ -187,7 +186,7 @@ header {
         	.posA(@headerHeight,0,auto,0);
         	display: inline;
         	.whl(100%, 40px );
-        	.gradient( @textColor2, @gCol4 );
+        	.gradient(@Color2, @gCol4 );
         	text-align: left; 
         	li {
          	 	margin-left: 10%;
@@ -195,7 +194,7 @@ header {
           		.whl(80px, 40px );
           		* { 
           			text-transform: uppercase;
-          			.text(white, 20px, bold );
+          			.text(@Color1, 20px, bold );
           			&:hover { 
           		    	.animation(white-text-pulse 2s infinite ease-in-out);
           			}
@@ -211,6 +210,11 @@ body {
   background: url("textured_paper.png");
   background-attachment: fixed;
   div.center {
+  	h1 {
+  		font-size: 30px;
+  		font-weight: 900;
+  		text-shadow: .07em .07em slateGray;
+  	}
     .shadow(2px, 4px, 12px, fadeout(#000, 75%));
     .posA(@headerHeight+50,auto,auto,5%);
     padding: 20px;
@@ -221,34 +225,33 @@ body {
  
 .division {
 	.depart-head {
-		background: @textColor2;
-  	    border: white 1px ridge;
+		background:@Color2;
+  	    border:@Color1 1px ridge;
   	    .gradient(@gCol1, @gCol2);
     	display: block;
     	text-transform: uppercase;
-    	.text (@tCol1, 14px, none );
+    	.text (@Color0, 14px, none );
     	cursor: pointer;
     	padding: 10px;
     	.shadow(0px, 1px, 5px, fadeout(#000, 75%));
     	.transn(all, .4s);    
     	&.selected {
-      		.text (@tCol3, 14px, none );
+      		.text (@Color3, 14px, none );
       		.gradient(@gCol1, @gCol3);
     	}
     	&:hover {
       		.gradient(@gCol3, @gCol2);
-      		.text (@tCol3, 14px, none );
+      		.text (@Color3, 14px, none );
     	}      
 	}
 	.departs {
-    	.text (@tCol2, 13px, none );
+    	.text (@Color0, 13px, none );
     	text-align: center; 
     	width: @centerWidth;
-    	/*//text-shadow: 1px, 1px, fadeout(#fff, 75%);*/
     	.gradient(@gCol3, @gCol1);
  		.hidden;   		
  		&.selected {
-  			background: white;
+  			background:@Color1;
   		}
   		table {
   			margin-left: 50px;vertical-align: middle;
@@ -256,14 +259,15 @@ body {
   		}  
 		.factors-names {
       		height: 25px;
-      		.text ( white, 15px,bold );
-      		border-bottom: black 2px solid;
+      		.text (@Color1, 15px,bold );
+      		border-bottom:@Color0 2px solid;
       		* { display: inline-block; }
     	}   
    		 .depart { 
     	 	&.selected {
-  				background: white;
+  				background:@Color1;
   			}
+  			cursor: pointer;
         	.transn(all, .3s);
         	.opacity(0.6);
         	.column1,.column2,.column3,.column4,.column5, {
@@ -294,9 +298,64 @@ body {
 }
  
 .notice {
-	
+	.text(green ,14px );
 }
 .invalid{
-	color: red;
+	.text(red ,14px );
 	border: red 1px solid;
+}
+.validation{
+	.text(red ,14px );
+}
+
+.debug_dump{
+	background: url(bgnoise_lg.png);
+	border: gray 1px groove;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 15px;
+	font: 'courier new';
+}
+
+.footer{
+	border-top: @Color3 3px groove;
+    padding: 10px;
+    li {
+    	display: inline; 
+    	margin: 5px;
+    }
+    a {
+    	
+    	&:hover {
+			color: @Color2; 
+			text-decoration: underline; 
+		}
+    }
+}
+
+
+#lean_overlay {
+    position: fixed;
+    z-index: 500;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#feedback {
+	display: none; 
+	position: fixed; 
+	opacity: 1; 
+	z-index: 11000; 
+	left: 50%; 
+	margin-left: -202px; 
+	top: 200px;
+	background: white;
+	border: gray 1px groove;
+	height: 500px;
+	width: 500px;
+	border-radius: 5px;
 }

@@ -1,14 +1,14 @@
 <% provide(:title, 'index') %>
 
 <h1>Listing worksheets</h1>
-<%= link_to 'Start interview', edit_worksheet_path(@worksheet) %>
+
 <table>
   <thead>
     <tr>
+      <th>ending</th>
       <th>id</th>
       <th>session</th>
       <th>depart</th>
-      <th>ending</th>
       <th></th>
       <th></th>
     </tr>
@@ -17,10 +17,11 @@
   <tbody>
     <% @worksheets.each do |worksheet| %>
       <tr>
+      	<td><%= worksheet.ending.to_s %></td>
       	<td><%= worksheet.id %></td>
       	<td><%= worksheet.session_id %></td>
       	<td><%= worksheet.depart_id %></td>
-      	<td><%= worksheet.ending %></td>
+      	
         <td><%= link_to 'Show', worksheet %></td>
         <td><%= link_to 'Destroy', worksheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
