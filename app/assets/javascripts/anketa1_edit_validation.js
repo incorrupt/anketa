@@ -27,9 +27,10 @@ $(function() {
     		var vm ="";                  // validation message
     		var vl = $('.validation');   // validation list ref
     		var depart;                  // Depart ref
-    		
+
     	    $("*").removeClass('invalid');
     		$('.check-depart').each(function(){
+
     			if ( $(this).is(':checked') ) {
     					++check_counter;
     					depart = $(this).parent('.depart-name').parent('.depart');
@@ -60,6 +61,26 @@ $(function() {
     				}
     			});
     		
+    		if ($(".user-depart").val() == '') {
+    			vm ="Не выбрано Ваше подразделение.";
+      			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);
+        		return false;	
+    		};
+    		if ($(".contrib").val() == '') {
+    			vm ="Нет оценки вклада бэк-офисов.";
+      			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);
+        		return false;	
+    		};
+    		if (parseInt($(".contrib").val()) == 0 ) {
+    			vm ="Нет оценки вклада бэк-офисов.";
+      			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);
+        		return false;	
+    		};
+    		if (parseInt($(".contrib").val()) > 100) {
+    			vm ="Оценка вклада бэк-офисов не должна быть больше 100%.";
+      			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);
+        		return false;	
+    		};
       		if ( check_counter > 5  ) {
       			vm ="Выбрано более пяти отделов ("+check_counter+" выбрано).";
       			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);

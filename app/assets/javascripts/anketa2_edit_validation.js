@@ -44,7 +44,12 @@ $(function() {
     					};
     				}
     			});
-    		
+    			
+    		if ($(".user-depart").val() == '') {
+    			vm ="Не выбрано Ваше подразделение.";
+      			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);
+        		return false;	
+    		};
       		if ( check_counter > 5  ) {
       			vm ="Выбрано более пяти отделов ("+check_counter+" выбрано).";
       			$("<li><span>"+vm+"</span></li>").appendTo(vl).show().fadeOut(fot);

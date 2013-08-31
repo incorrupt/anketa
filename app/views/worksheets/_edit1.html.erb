@@ -12,17 +12,18 @@
 	<h2>Выберите ваше подразделение. </h2>
 	<p><%= f.label "Подразделение" %>
 		<%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,
-  		{ :include_blank =>' -- Please select Yours Depart --' } )%>
+  		{ :include_blank =>' -- Please select Yours Depart --' }, class: "user-depart" )%>
   	</p>	
     </br >
-    <h2>Отцените в процентах вклад бэк-офисов в производстве(продаже) банковских продуктов</h2>
+    <h2>Оцените в процентах вклад бэк-офисов в производстве(продаже) банковских продуктов</h2>
     <p><%= f.label "Оценка" %> 
-     	<%= f.number_field :contrib , in: 1...101  %>
+     	<%= f.number_field :contrib , in: 1...101, class: "contrib"  %>
     </p>    
     </br >
   	<p><%= f.submit "Отправить" ,class: 'submit-btn'%></p> 
 </div>
 
+<h2>Выбирите и оцените пять подраздразделений с которыми Вы взаимодействуете</h2>
 <% @PDeparts.each do |p| %>
 <div class="division">
 	<div class="depart-head">

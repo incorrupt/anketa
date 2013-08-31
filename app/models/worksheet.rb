@@ -6,7 +6,8 @@ class Worksheet < ActiveRecord::Base
   has_many :votes
   
   def  ending
-    return  Worksheet.where(:id =>  id).first.created_at 
+    return  Worksheet.where('end_date is not null and id = ?',id).exists?
+    
   end
   
 end

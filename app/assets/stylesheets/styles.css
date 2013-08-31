@@ -131,8 +131,7 @@
 .keyframes(roll, flip ,roll, flap);
 
 /*/////////////// Optimize Main Elements /////////////*/
-::-webkit-scrollbar { display: none; } 
- 
+
 html {
 	list-style: none;
 	.text;
@@ -163,7 +162,7 @@ header {
     		background: url("logo.png") no-repeat center ;
     		background-size: cover;
     		display: inline-block;
-    		&:hover {.animation(roll 1s infinite linear);}
+    		//&:hover {.animation(roll 1s infinite linear);}
     	}
     	label.logo {
     		margin-left: 100px;
@@ -226,9 +225,9 @@ body {
  
 .division {
 	.depart-head {
-		background:@Color2;
-  	    border:@Color1 1px ridge;
-  	    .gradient(@gCol1, @gCol2);
+		  background:@Color2;
+  	  border:@Color1 1px ridge;
+  	  .gradient(@gCol1, @gCol2);
     	display: block;
     	text-transform: uppercase;
     	.text (@Color0, 14px, none );
@@ -299,6 +298,9 @@ body {
 }
  
 .notice {
+  margin:5px;
+  width:100%;
+  text-align: left; 
 	.text(green ,14px );
 }
 .invalid{
@@ -306,6 +308,9 @@ body {
 	border: red 1px solid;
 }
 .validation{
+  width:100%;
+  text-align: left; 
+  margin:5px;
 	.text(red ,14px );
 }
 
@@ -322,8 +327,9 @@ body {
 	border-top: @Color3 3px groove;
     padding: 10px;
     li {
-    	display: inline; 
+    	display: none; /*inline; */
     	margin: 5px;
+    	
     }
     a {
     	
