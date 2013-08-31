@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20130824065404) do
 
   create_table "worksheets", force: true do |t|
     t.float    "contrib"
-    t.datetime "ending"
+    t.datetime "end_date"
     t.integer  "depart_id"
     t.string   "session_id"
     t.datetime "created_at"

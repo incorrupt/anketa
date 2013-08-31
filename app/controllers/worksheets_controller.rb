@@ -44,9 +44,10 @@ class WorksheetsController < ApplicationController
          Vote.destroy_all(factor_id: v[:factor_id], worksheet_id: v[:worksheet_id],depart_id: v[:depart_id]) 
         end 
       end
-      @worksheet.ending= Time.now
+      @worksheet.end_date= Time.now
       @worksheet.save
-      redirect_to @worksheet, notice: 'Worksheet was successfully updated.'
+      @worksheet= Worksheet.find(@worksheet.id)
+      redirect_to @worksheet, notice: 'Worksheet was successfully updated.'+@worksheet.end_date.to_s
     else
       render action: 'edit'
     end

@@ -1,16 +1,23 @@
 <h1>Опрос 2</h1>
 
-<p class="notice"> <%= notice  %></p>
-<ul class="validation"></ul>
-<%= render 'form' %>
-
-<p>текст опроса. </p>
+<div class="messages">
+	<p class="notice"> <%= notice  %></p>
+	<ul class="validation"></ul>
+	<%= render 'form' %>
+</div>
 
 <%= form_for  @worksheet, url: {action: "update"}, html: {method: "patch"} do |f| %>
-<%= f.label "Подразделение" %>
-<%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,
+
+<div class="fields-set">
+	<h2>Выберите ваше подразделение. </h2>
+	<p><%= f.label "Подразделение" %>
+		<%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,
   		{ :include_blank =>' -- Please select Yours Depart --' } )%>
-<%= f.submit "Отправить" %> 
+  	</p>	
+    </br >  
+  	<p><%= f.submit "Отправить" ,class: 'submit-btn'%></p> 
+  	
+</div>
 
 <% @PDeparts.each do |p| %>
 <div class="division">

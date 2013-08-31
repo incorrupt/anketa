@@ -211,6 +211,7 @@ body {
   background-attachment: fixed;
   div.center {
   	h1 {
+  		margin: 25px;
   		font-size: 30px;
   		font-weight: 900;
   		text-shadow: .07em .07em slateGray;
@@ -314,7 +315,7 @@ body {
 	padding: 5px;
 	border-radius: 5px;
 	margin: 15px;
-	font: 'courier new';
+	font-family: 'Courier New';
 }
 
 .footer{

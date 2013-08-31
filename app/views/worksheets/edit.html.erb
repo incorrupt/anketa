@@ -1,11 +1,12 @@
+ 
+<% if ( Worksheet.where('end_date is not null and id = ?',@worksheet.id).exists? ) %>
+   <%= render 'thanx' %>
+<% elsif ( params[:anketa] == '1' ) %>
 
-
-<% if ( params[:anketa] == '1' ) %>
   <%= render 'edit1' %>
+   
   <script src="/assets/anketa1_edit_validation.js?body=1"></script>
-<% end %> 
-
-<% if ( params[:anketa] == '2' ) %>
+<% elsif ( params[:anketa] == '2' ) %>
   <%= render 'edit2' %>
   <script src="/assets/anketa2_edit_validation.js?body=1"></script>
 <% end %>
