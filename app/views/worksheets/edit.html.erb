@@ -1,7 +1,6 @@
  
-<% if (  @worksheet.ending ) %>
-    <%= render 'thanx' %> 
-<% elsif ( params[:anketa] == '1' ) %>
+ 
+<% if ( params[:anketa] == '1' ) %>
   <%= render 'edit1' %>
   <script src="/assets/anketa1_edit_validation.js?body=1"></script>
 <% elsif ( params[:anketa] == '2' ) %>

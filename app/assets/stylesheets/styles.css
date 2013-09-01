@@ -209,6 +209,7 @@ body {
   background: url("textured_paper.png");
   background-attachment: fixed;
   div.center {
+  	padding: 10px;
   	h1 {
   		margin: 25px;
   		font-size: 30px;
@@ -221,6 +222,17 @@ body {
     background: @gCol1; 
     .whl(@centerWidth, auto );
   }
+}
+ 
+.fields {
+    p, input {margin: 5px;}
+	border-top: green 1px solid;
+}
+
+h2 {
+	font-style: italic;
+	font-size: 15px;
+	margin: 10px;
 }
  
 .division {
@@ -304,8 +316,8 @@ body {
 	.text(green ,14px );
 }
 .invalid{
-	.text(red ,14px );
-	border: red 1px solid;
+	//.text(red ,14px );
+	border: red 2px solid;
 }
 .validation{
   width:100%;

@@ -1,4 +1,4 @@
-<h1>Опрос 2</h1>
+<h1>Анкета 2</h1>
 
 <div class="messages">
 	<p class="notice"> <%= notice  %></p>
@@ -7,19 +7,21 @@
 </div>
 
 <%= form_for  @worksheet, url: {action: "update"}, html: {method: "patch"} do |f| %>
-
-<div class="fields-set">
+<div class="fields">
+<p><%= f.submit "Отправить результат" ,class: 'submit-btn'%></p> 
+</div>
+<div class="fields">
 	<h2>Выберите ваше подразделение. </h2>
 	<p><%= f.label "Подразделение" %>
 		<%= f.select(:depart_id, options_for_select(@UDepartsList , @worksheet.depart_id ) ,
-  		{ :include_blank =>' -- Please select Yours Depart --' }, class: "user-depart"  )%>
+  		{ :include_blank =>' ' }, class: "user-depart"  )%>
   	</p>	
-    </br >  
-  	<p><%= f.submit "Отправить" ,class: 'submit-btn'%></p> 
-  	
+ 
+
 </div>
 
-<h2>Выбирите и оцените пять подраздразделений с которыми Вы взаимодействуете</h2>
+<div class="fields">
+<h2>Выбирите пять подраздразделений с которыми Вы взаимодействуете и дайте им оценку</h2>
 <% @PDeparts.each do |p| %>
 <div class="division">
 	<div class="depart-head">
@@ -47,7 +49,7 @@
 			<td class="column2"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 2, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList2, (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something", class: "factor2" } )%>
+					{ :prompt => " ", class: "factor2" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 2 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
@@ -55,7 +57,7 @@
 			<td class="column3"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 4, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList4, (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something", class: "factor4" } )%>
+					{ :prompt => " ", class: "factor4" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 4 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
@@ -63,7 +65,7 @@
 			<td class="column4"> 
 				<% vote = Vote.where(depart_id: d[0], factor_id: 5, worksheet_id: @worksheet.id ).first %>
 				<%= select_tag("worksheet[votes][][value]", options_for_select(@RList5 , (vote.nil? ? 0 : vote.value) ),
-					{ :prompt => "Select something", class: "factor5" } )%>
+					{ :prompt => " ", class: "factor5" } )%>
 				<%= hidden_field_tag "worksheet[votes][][depart_id]", d[0] %>
 				<%= hidden_field_tag "worksheet[votes][][factor_id]", 5 %>
 				<%= hidden_field_tag "worksheet[votes][][worksheet_id]", @worksheet.id %> 
@@ -74,5 +76,7 @@
 	</div>
 </div>
 <% end %>
+</div>
+  	
 
 <% end %> 

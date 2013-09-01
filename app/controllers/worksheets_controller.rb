@@ -20,6 +20,9 @@ class WorksheetsController < ApplicationController
 
   # GET /worksheets/1/edit
   def edit
+    if (  @worksheet.ending ) 
+      redirect_to @worksheet, notice: 'Ваша анкета успешно сохранена'
+    end 
     @worksheet = current_anketa
     @votes = Vote.where( worksheet_id: @worksheet.id).all
     @PDeparts = Depart.where(:parent=>nil).joins(' JOIN departs dd ON dd.parent = departs.id').select("departs.id,departs.name").group("departs.id,departs.name").having("sum(1) > ?",0).order(:name).all.map { |d| [ d.id , d.name ] }  
@@ -47,7 +50,7 @@ class WorksheetsController < ApplicationController
       @worksheet.end_date= Time.now
       @worksheet.save
       @worksheet= Worksheet.find(@worksheet.id)
-      redirect_to @worksheet, notice: 'Worksheet was successfully updated.'+@worksheet.end_date.to_s
+      redirect_to @worksheet, notice: 'Ваша анкета успешно сохранена'
     else
       render action: 'edit'
     end
