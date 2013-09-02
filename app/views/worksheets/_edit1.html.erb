@@ -49,7 +49,7 @@
 			<td class="column5"><%= Factor.find(4).name %>
 			</td>
 		</tr>
-		<% Depart.where(parent: p[0]).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>
+		<% Depart.where(parent: p[0], type_id: 0 ).order('name').map {|d| [ d.id, d.name ]}.each do |d| %>
 		<tr class="depart">
 			<td class="column1 depart-name"> 
 				<%= check_box_tag "worksheet[show][]", d[0]  ,Vote.where(depart_id: d[0], worksheet_id: @worksheet.id ).exists? , class: "check-depart" %>

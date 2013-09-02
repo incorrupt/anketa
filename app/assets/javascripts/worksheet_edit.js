@@ -22,7 +22,7 @@ $(function() {
 		function(){
 			if( $(this).children(".check-depart").is(':checked') ) {
 				$(this).parent('.depart').removeClass('selected');
-				$(this).children('.check-depart').prop('checked', false);
+				$(this).children('.check-depart').prop('checked', false); 
 			} else {
 				$(this).children('.check-depart').prop('checked', true);
 				$(this).parent('.depart').addClass('selected');

@@ -1,6 +1,6 @@
 class Depart < ActiveRecord::Base
   
-  attr_accessible :name, :parent, :id 
+  attr_accessible :name, :parent, :id , :type_id
   
   has_many :worksheets
   has_many :votes

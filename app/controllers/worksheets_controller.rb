@@ -17,6 +17,18 @@ class WorksheetsController < ApplicationController
   def show
     @worksheet = current_anketa
   end
+  
+  def new
+    @worksheet = current_anketa
+    if params[:anketa]=='1'
+      redirect_to edit_worksheet_path(@worksheet, :anketa => 1 ) 
+    end
+    
+    if params[:anketa]=='2'
+      redirect_to edit_worksheet_path(@worksheet, :anketa => 2 ) 
+    end
+    
+  end
 
   # GET /worksheets/1/edit
   def edit
@@ -25,8 +37,16 @@ class WorksheetsController < ApplicationController
     end 
     @worksheet = current_anketa
     @votes = Vote.where( worksheet_id: @worksheet.id).all
-    @PDeparts = Depart.where(:parent=>nil).joins(' JOIN departs dd ON dd.parent = departs.id').select("departs.id,departs.name").group("departs.id,departs.name").having("sum(1) > ?",0).order(:name).all.map { |d| [ d.id , d.name ] }  
-    @UDepartsList = Depart.order(:name).all.map { |d| [ d.name , d.id ] }  
+    
+    @PDeparts = Depart
+    @PDeparts = @PDeparts.where(:parent=>nil).joins(' JOIN departs dd ON dd.parent = departs.id and dd.type_id = 0 ') if params[:anketa] == '1'
+    @PDeparts = @PDeparts.where(:parent=>nil).joins(' JOIN departs dd ON dd.parent = departs.id ') if params[:anketa] == '2'
+    @PDeparts = @PDeparts.select("departs.id,departs.name").group("departs.id,departs.name").having("sum(1) > ?",0).order(:name).all.map { |d| [ d.id , d.name ] }  
+    
+    @UDepartsList = Depart
+    @UDepartsList = @UDepartsList.where('type_id = 1 and parent is not null') if params[:anketa] == '1'
+    @UDepartsList = @UDepartsList.order(:name).all.map { |d| [ d.name , d.id ] }  
+    
     @RList2 = Rate.where(:factor_id=>2).order('rates.value').all.map{|f| [f.name,f.value] }
     @RList3 = Rate.where(:factor_id=>3).order('rates.value').all.map{|f| [f.name,f.value] }
     @RList4 = Rate.where(:factor_id=>4).order('rates.value').all.map{|f| [f.name,f.value] }

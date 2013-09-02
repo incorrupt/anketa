@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20130831200540) do
   create_table "departs", force: true do |t|
     t.string   "name",       limit: 1000
     t.integer  "parent"
+    t.integer  "type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
